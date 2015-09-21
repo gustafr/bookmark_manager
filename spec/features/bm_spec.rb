@@ -33,6 +33,25 @@ feature 'application setup' do
       visit '/'
       expect(page).to have_content 'Created:'
     end
-
   end
+
+  feature 'sign up' do
+    before {visit '/'}
+    scenario 'click on button sign up route to /sign_up page' do
+      click_on 'Sign Up'
+      expect(page.current_path).to eq '/sign_up'
+      expect(page.status_code).to eq 200
+    end
+    scenario 'displays a user /sign_up form' do
+      expect(page).to have_selector "form[action='/dashboard']"
+      expect(page).to have_selector "input[type='text']"
+      expect(page).to have_selector "input[name='username']"
+      expect(page).to have_selector "input[type='text']"
+      expect(page).to have_selector "input[name='email']"
+      expect(page).to have_selector "input[type='text']"
+      expect(page).to have_selector "input[name='password']"
+      expect(page).to have_selector "input[type='submit']"
+      expect(page).to have_selector "input[vaule='Sign Up']"
+    end
+  end 
 end
