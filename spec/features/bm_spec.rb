@@ -21,5 +21,18 @@ feature 'application setup' do
       visit '/'
       expect(page).to have_content 'Sign In'
     end
+    scenario 'bookmarks has a url' do
+      visit '/'
+      expect(page).to have_content 'Url'
+    end
+    scenario 'bookmarks has a description' do
+      visit '/'
+      expect(page).to have_content 'Description'
+    end
+    scenario 'bookmarks displays posted by' do
+      visit '/'
+      expect(page).to have_content 'Created:'
+    end
+
   end
 end

@@ -1,0 +1,16 @@
+<% @links.each do |link| %>
+  <small>Url:</small><br> <a href="<%= link[:url] %>"><%= link[:title]%></a>
+   <p><small>Description:</small><br><%= link[:description]%></p>
+   <p>
+    <small>
+      Tags: <% link[:tags].each do |tag| %>
+        <%= tag %>
+      <%end%>
+    </small>
+  </p>
+  <p>
+    <small>
+      Created: <%= link[:created_at]%> by: <%= link[:created_by]%>
+    </small>
+    </p>
+<%end%>

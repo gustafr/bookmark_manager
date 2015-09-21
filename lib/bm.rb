@@ -1,12 +1,14 @@
 require 'sinatra/base'
+require './lib/link.rb'
 
 class BookmarkManager < Sinatra::Base
 	set :views, proc {File.join(root, '..', 'views')}
   	enable :sessions
   	set :session_secret, '123321123'
-  	use Rack::Session::Pool 
+  	use Rack::Session::Pool
+
   get '/' do
-    'Hello BookmarkManager!'
+    @links = Link.get_links
     erb :index
   end
 
