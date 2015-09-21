@@ -7,6 +7,7 @@ class BookmarkManager < Sinatra::Base
   	use Rack::Session::Pool 
   get '/' do
     'Hello BookmarkManager!'
+    erb :index
   end
 
   # start the server if ruby file executed directly
