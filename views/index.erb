@@ -1,3 +1,5 @@
+<main> 
+<div>
 <% @links.each do |link| %>
   <small>Url:</small><br> <a href="<%= link[:url] %>"><%= link[:title]%></a>
    <p><small>Description:</small><br><%= link[:description]%></p>
@@ -14,3 +16,5 @@
     </small>
     </p>
 <%end%>
+</div>
+</main>
