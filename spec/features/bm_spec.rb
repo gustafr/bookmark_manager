@@ -4,5 +4,9 @@ feature 'application setup' do
       visit '/'
       expect(page.status_code).to be 200
     end
+    scenario 'it has add link' do
+      visit '/'
+      expect(page).to have_content 'Add Link'
+    end
   end
 end
