@@ -3,6 +3,7 @@ require 'sinatra/form_helpers'
 require 'data_mapper'
 require 'dm-migrations'
 require './lib/link.rb'
+require './lib/user.rb'
 require 'byebug'
 
 
