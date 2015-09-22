@@ -5,11 +5,13 @@ require File.join(File.dirname(__FILE__), '..', 'lib/bm.rb')
 require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
+require 'dm-rspec'
 
 Capybara.app = BookmarkManager
 
 RSpec.configure do |config|
   config.include Capybara::DSL
+  config.include DataMapper::Matchers
 
   config.expect_with :rspec do |expectations|
 

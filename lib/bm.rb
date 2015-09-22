@@ -1,7 +1,9 @@
 require 'sinatra/base'
 require 'sinatra/form_helpers'
 require 'data_mapper'
+require 'dm-migrations'
 require './lib/link.rb'
+require 'byebug'
 
 
 
@@ -16,7 +18,6 @@ class BookmarkManager < Sinatra::Base
     DataMapper.setup(:default, "postgres://localhost/bm_#{env}")
     DataMapper.finalize
     DataMapper.auto_upgrade!
-
   get '/' do
     @links = Link.all
     erb :index
@@ -27,7 +28,24 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/dashboard' do
+    @email = params[:email]
+    @password = params[:password]
+    @post = User.create(:email => @email, :password => @password, :created_at => Time.now)
     erb :dashboard
+
+  end
+
+  get '/add_link' do
+    erb :add_link
+  end
+
+  post '/new_link' do
+    @title = params[:title]
+    @description = params[:description]
+    @url = params[:url]
+    @post = Link.create(:title => @title, :description => @description, :url => @url, :created_at => Time.now)
+    erb :add_link
+
   end
 
   # start the server if ruby file executed directly

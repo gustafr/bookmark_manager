@@ -1,9 +1,11 @@
 require 'link'
 
-describe 'Link' do
+describe Link do
 
-  it 'has an array with links' do
-  expect(Link.get_links).to be_kind_of Array
-  end
+ it { is_expected.to have_property :id   }
+ it { is_expected.to have_property :title   }
+ it { is_expected.to have_property :description   }
+ it { is_expected.to have_property :url   }
+ it { is_expected.to have_property :created_at   }
 
 end
