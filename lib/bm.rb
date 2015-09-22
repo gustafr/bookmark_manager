@@ -28,8 +28,8 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/dashboard' do
-    @email = params[:email]
-    @password = params[:password]
+    session[:email] = params[:email]
+    session[:password] = params[:password]
     @post = User.create(:email => @email, :password => @password, :created_at => Time.now)
     erb :dashboard
 
@@ -43,7 +43,7 @@ class BookmarkManager < Sinatra::Base
     @title = params[:title]
     @description = params[:description]
     @url = params[:url]
-    @post = Link.create(:title => @title, :description => @description, :url => @url, :created_at => Time.now)
+    @post = Link.create(:title => @title, :description => @description, :url => @url, :created_at => Time.now, :created_by => session[:email])
     erb :add_link
 
   end
