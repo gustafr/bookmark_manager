@@ -1,6 +1,9 @@
 require 'sinatra/base'
 require 'sinatra/form_helpers'
+require 'data_mapper'
 require './lib/link.rb'
+
+
 
 class BookmarkManager < Sinatra::Base
 	helpers Sinatra::FormHelpers
@@ -8,9 +11,17 @@ class BookmarkManager < Sinatra::Base
   	enable :sessions
   	set :session_secret, '123321123'
   	use Rack::Session::Pool
+    env = ENV['RACK_ENV'] || "development"
+
+    DataMapper.setup(:default, "postgres://localhost/bm_#{env}")
+    DataMapper.finalize
+    DataMapper.auto_uppgrade!
+    binding.pry
+
+
 
   get '/' do
-    @links = Link.get_links
+    @links = Link.all
     erb :index
   end
 
