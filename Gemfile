@@ -10,6 +10,7 @@ gem 'dm-postgres-adapter'
 group :development, :test do
   gem 'capybara'
   gem 'rspec'
+  gem 'dm-rspec'
   gem 'rspec-sinatra'
   gem 'shotgun'
 end
