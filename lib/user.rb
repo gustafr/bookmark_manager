@@ -1,3 +1,4 @@
+'require bcrypt'
 class User
 
 include DataMapper::Resource
@@ -22,14 +23,15 @@ property :created_at, DateTime
     @user = User.new(params[:user])
     @user.password = params[:password]
     @user.save!
-  end 
+  end
 
   def login
     @user = User.find_by_email(params[:email])
     if @user.password == params[:password]
       give_token
-    else 
+    else
       redirect_to home_url
+    end
   end
 
   def forget_password
