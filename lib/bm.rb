@@ -15,10 +15,7 @@ class BookmarkManager < Sinatra::Base
 
     DataMapper.setup(:default, "postgres://localhost/bm_#{env}")
     DataMapper.finalize
-    DataMapper.auto_uppgrade!
-    binding.pry
-
-
+    DataMapper.auto_upgrade!
 
   get '/' do
     @links = Link.all
