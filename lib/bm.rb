@@ -31,9 +31,9 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/dashboard' do
-    session[:email] = params[:email]
-    session[:password] = params[:password]
-    @post = User.create(:email => @email, :password => @password, :created_at => Time.now)
+    @email = params[:email]
+    @password = params[:password]
+    @post = User.create(:email => @email, :created_at => Time.now)
     erb :dashboard
 
   end

@@ -53,5 +53,5 @@ feature 'application setup' do
       expect(page).to have_selector "input[type='submit']"
       expect(page).to have_selector "input[vaule='Sign Up']"
     end
-  end 
+  end
 end
