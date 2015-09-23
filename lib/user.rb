@@ -51,11 +51,11 @@ property :created_at, DateTime
  #  end
 
   before :save do
-    #if self.password == self.password_confirmation
+    if self.password == self.password_confirmation
       self.password_digest = BCrypt::Password.create(self.password)
-    #else
-     # break
-    #end
+    else
+      break
+    end
   end
 
 

@@ -15,4 +15,5 @@ group :development, :test do
   gem 'rspec-sinatra'
   gem 'shotgun'
   gem 'dm-rspec'
+  gem 'database_cleaner', '~> 1.5.0'
 end

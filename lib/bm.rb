@@ -33,6 +33,7 @@ class BookmarkManager < Sinatra::Base
   post '/dashboard' do
     @email = params[:email]
     @password = params[:password]
+    @passwordconfirmation = params[:password_confirmation]
     @post = User.create(:email => @email, :created_at => Time.now)
     erb :dashboard
 
