@@ -17,7 +17,7 @@
       expect(page).to have_selector "input[name='url']"
     end
 
-    scenario 'user can add a link' do
+    scenario 'user can add a link if logged in' do
       expect(Link.count).to eq 0
       visit '/add_link'
       fill_in 'title', :with => 'Testpage'
@@ -26,5 +26,16 @@
       click_on 'submit'
       expect(Link.count).to eq 1
       expect(page.current_path).to eq '/new_link'
+    end
+
+    scenario 'user cant add a link if not logged in' do
+      expect(Link.count).to eq 0
+      visit '/add_link'
+      #fill_in 'title', :with => 'Testpage'
+      #fill_in 'description', :with => 'Testdescription'
+      #fill_in 'url', :with => 'www.test.com'
+      #click_on 'submit'
+      #expect(Link.count).to eq 1
+      expect(page.current_path).to eq '/sign_in'
     end
   end

@@ -8,6 +8,7 @@ require './lib/user.rb'
 require 'byebug'
 
 
+
 class BookmarkManager < Sinatra::Base
 	helpers Sinatra::FormHelpers
 	set :views, proc {File.join(root, '..', 'views')}
@@ -20,6 +21,15 @@ class BookmarkManager < Sinatra::Base
     DataMapper.finalize
     DataMapper.auto_upgrade!
     DataMapper::Model.raise_on_save_failure = true
+
+    def is_user?
+      @user != nil
+    end
+
+  before do
+
+    @user = User.get(session[:user_id]) unless is_user?
+  end
 
   get '/' do
     @links = Link.all
@@ -49,11 +59,14 @@ class BookmarkManager < Sinatra::Base
 
   post '/sign_in' do
     if
+      
       @user = User.authenticate(params[:email], params[:password])
+      session[:user_id] = @user.id
       redirect '/dashboard'
     else
       redirect 'sign_in'
     end
+
   end
 
   get '/dashboard' do
@@ -61,7 +74,11 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/add_link' do
-    erb :add_link
+    if session[:user_id] == nil
+      redirect '/sign_in'
+    else
+      erb :add_link
+    end
   end
 
   post '/new_link' do
