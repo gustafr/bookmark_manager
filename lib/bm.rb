@@ -43,6 +43,10 @@ class BookmarkManager < Sinatra::Base
 
   end
 
+  get '/sign_in' do
+    erb :sign_in
+  end
+
   post '/sign_in' do
     @email = params[:email]
     @password = params[:password]
