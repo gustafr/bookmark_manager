@@ -5,7 +5,7 @@ require 'dm-migrations'
 require 'bcrypt'
 require './lib/link.rb'
 require './lib/user.rb'
-require 'byebug'
+#require 'byebug'
 
 
 class BookmarkManager < Sinatra::Base

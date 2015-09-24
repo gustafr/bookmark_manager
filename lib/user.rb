@@ -1,5 +1,5 @@
 'require bcrypt'
-'require byebug'
+
 class User
   attr_accessor :password, :password_confirmation
 
