@@ -16,7 +16,7 @@ class BookmarkManager < Sinatra::Base
   	use Rack::Session::Pool
     env = ENV['RACK_ENV'] || "development"
 
-    DataMapper.setup(:default, "postgres://localhost/bm_#{env}")
+    DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/bm_#{env}")
     DataMapper.finalize
     DataMapper.auto_upgrade!
     DataMapper::Model.raise_on_save_failure = true
@@ -30,13 +30,24 @@ class BookmarkManager < Sinatra::Base
   	erb :sign_up
   end
 
+  post '/sign_up_success' do
+    begin
+      @email = params[:email]
+      @password = params[:password]
+      @password_confirmation = params[:password_confirmation]
+      @post = User.create(:email => @email, :password => @password, :password_confirmation => @password_confirmation, :created_at => Time.now)
+      redirect '/dashboard'
+    rescue
+      redirect 'sign_up'
+    end
+
+  end
+
   post '/dashboard' do
     @email = params[:email]
     @password = params[:password]
     @passwordconfirmation = params[:password_confirmation]
-    @post = User.create(:email => @email, :created_at => Time.now)
     erb :dashboard
-
   end
 
   get '/add_link' do

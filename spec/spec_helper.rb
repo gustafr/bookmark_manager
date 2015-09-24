@@ -13,6 +13,17 @@ def create_link
   link.save
 end
 
+def create_user(email, password)
+  User.create(email: email, password: password, password_confirmation: password)
+end
+
+def login_user(email, password)
+  visit '/sign_up'
+  fill_in 'email', :with => email
+  fill_in 'password', :with => password
+  click_button 'Sign in'
+end
+
 Capybara.app = BookmarkManager
 
 RSpec.configure do |config|

@@ -1,15 +1,16 @@
 source "https://rubygems.org"
 
 gem 'sinatra'
-gem 'byebug'
 gem 'sinatra-formhelpers-ng'
 gem 'bcrypt'
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
+gem "pg"
 
 
 group :development, :test do
   gem 'capybara'
+  gem 'byebug'
   gem 'rspec'
   gem 'dm-rspec'
   gem 'rspec-sinatra'
