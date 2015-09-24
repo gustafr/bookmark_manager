@@ -10,7 +10,7 @@ feature 'user sign up' do
 
     scenario 'displays a user /sign_up form' do
       visit '/sign_up'
-      expect(page).to have_selector "form[action='/sign_up_success']"
+      expect(page).to have_selector "form[action='/sign_up']"
       expect(page).to have_selector "input[type='text']"
       expect(page).to have_selector "input[name='email']"
       expect(page).to have_selector "input[name='password']"
@@ -28,6 +28,7 @@ feature 'user sign up' do
       click_button 'Sign Up'
       expect(User.count).to eq 1
       expect(page.current_path).to eq '/dashboard'
+      expect(page.status_code).to eq 200
     end
 
     scenario 'user cant sign up if password doesnt match' do

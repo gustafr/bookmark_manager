@@ -30,7 +30,7 @@ class BookmarkManager < Sinatra::Base
   	erb :sign_up
   end
 
-  post '/sign_up_success' do
+  post '/sign_up' do
     begin
       @email = params[:email]
       @password = params[:password]
@@ -43,10 +43,14 @@ class BookmarkManager < Sinatra::Base
 
   end
 
-  post '/dashboard' do
+  post '/sign_in' do
     @email = params[:email]
     @password = params[:password]
     @passwordconfirmation = params[:password_confirmation]
+    redirect '/dashboard'
+  end
+
+  get '/dashboard' do
     erb :dashboard
   end
 
