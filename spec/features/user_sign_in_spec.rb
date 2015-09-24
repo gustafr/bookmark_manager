@@ -38,4 +38,16 @@ feature 'user sign in' do
       click_button 'Sign in'
       expect(page.current_path).to eq '/sign_in'
     end
+
+    xscenario 'logged in user has a sign out button' do
+      User.create(email: 'email', password: 'password', password_confirmation: 'password')
+      expect(page).to have_content 'Sign Out'
+    end
+
+    xscenario 'logged in user can sign out' do
+      User.create(email: 'email', password: 'password', password_confirmation: 'password')
+      click_button 'Sign Out'
+      expect(page).to not_have_content 'Sign Out'
+    end
+
 end

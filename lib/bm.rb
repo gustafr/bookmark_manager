@@ -27,7 +27,6 @@ class BookmarkManager < Sinatra::Base
     end
 
   before do
-
     @user = User.get(session[:user_id]) unless is_user?
   end
 
@@ -46,6 +45,7 @@ class BookmarkManager < Sinatra::Base
       @password = params[:password]
       @password_confirmation = params[:password_confirmation]
       @user = User.create(:email => @email, :password => @password, :password_confirmation => @password_confirmation, :created_at => Time.now)
+      session[:user_id] = @user.id
       redirect '/dashboard'
     rescue
       redirect 'sign_up'
@@ -59,15 +59,18 @@ class BookmarkManager < Sinatra::Base
 
   post '/sign_in' do
     if
-      
       @user = User.authenticate(params[:email], params[:password])
       session[:user_id] = @user.id
       redirect '/dashboard'
     else
       redirect 'sign_in'
     end
-
   end
+
+  get '/sign_out' do
+      session[:user_id] = nil
+      redirect '/'
+    end
 
   get '/dashboard' do
     erb :dashboard
