@@ -5,7 +5,7 @@ require 'dm-migrations'
 require 'bcrypt'
 require './lib/link.rb'
 require './lib/user.rb'
-#require 'byebug'
+require 'byebug'
 
 
 class BookmarkManager < Sinatra::Base
@@ -35,7 +35,7 @@ class BookmarkManager < Sinatra::Base
       @email = params[:email]
       @password = params[:password]
       @password_confirmation = params[:password_confirmation]
-      @post = User.create(:email => @email, :password => @password, :password_confirmation => @password_confirmation, :created_at => Time.now)
+      @user = User.create(:email => @email, :password => @password, :password_confirmation => @password_confirmation, :created_at => Time.now)
       redirect '/dashboard'
     rescue
       redirect 'sign_up'
@@ -48,10 +48,12 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/sign_in' do
-    @email = params[:email]
-    @password = params[:password]
-    @passwordconfirmation = params[:password_confirmation]
-    redirect '/dashboard'
+    if
+      @user = User.authenticate(params[:email], params[:password])
+      redirect '/dashboard'
+    else
+      redirect 'sign_in'
+    end
   end
 
   get '/dashboard' do

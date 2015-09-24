@@ -20,7 +20,7 @@ feature 'user sign in' do
     end
 
     scenario 'user can sign in' do
-      
+
       visit '/sign_in'
       User.create(email: 'email', password: 'password', password_confirmation: 'password')
       fill_in 'email', :with => 'email'
@@ -30,14 +30,12 @@ feature 'user sign in' do
       expect(page.status_code).to eq 200
     end
 
-    scenario 'user cant sign up if password doesnt match' do
-      expect(User.count).to eq 0
-      visit '/sign_up'
+    scenario 'user cant sign in if password doesnt match' do
+      User.create(email: 'email', password: 'password', password_confirmation: 'password')
+      visit '/sign_in'
       fill_in 'email', :with => 'email'
-      fill_in 'password', :with => 'password'
-      fill_in 'password_confirmation', :with => 'password1'
-      click_button 'Sign Up'
-      expect(User.count).to eq 0
-      expect(page.current_path).to eq '/sign_up'
+      fill_in 'password', :with => 'password_wrong'
+      click_button 'Sign in'
+      expect(page.current_path).to eq '/sign_in'
     end
 end
