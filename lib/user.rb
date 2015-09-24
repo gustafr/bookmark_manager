@@ -13,10 +13,10 @@ property :created_at, DateTime
 
 #has n, :links, through: Resource
 
-# validates_presence_of :email, message: "Please fill in email."
-# validates_uniqueness_of :email , message: "User already exists."
-# validates_presence_of :password, message: "Please fill in password."
-# validates_confirmation_of :password, message: "Sorry, password is not matching."
+validates_presence_of :email, message: "Please fill in email."
+validates_uniqueness_of :email , message: "User already exists."
+validates_presence_of :password, message: "Please fill in password."
+#validates_confirmation_of :password, message: "Sorry, password is not matching."
 
         #The User model
  #  def password
