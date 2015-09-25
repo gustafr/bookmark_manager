@@ -20,6 +20,7 @@ class BookmarkManager < Sinatra::Base
     DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/bm_#{env}")
     DataMapper.finalize
     DataMapper.auto_upgrade!
+    #DataMapper.auto_migrate!
     DataMapper::Model.raise_on_save_failure = true
 
     def is_user?
@@ -61,11 +62,13 @@ class BookmarkManager < Sinatra::Base
   post '/sign_in' do
     if
       @user = User.authenticate(params[:email], params[:password])
+      #byebug
       session[:user_id] = @user.id
       session[:email] = @user.email
       redirect '/dashboard'
     else
       redirect 'sign_in'
+
     end
   end
 
@@ -90,7 +93,7 @@ class BookmarkManager < Sinatra::Base
     @title = params[:title]
     @description = params[:description]
     @url = params[:url]
-    @post = Link.create(:title => @title, :description => @description, :url => @url, :created_at => Time.now, :created_by => session[:email])
+    @post = Link.create(:title => @title, :description => @description, :url => @url, :created_at => Time.now, :created_by => session[:email], user_id: @user.id)
     erb :add_link
 
   end

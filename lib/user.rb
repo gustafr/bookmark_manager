@@ -11,7 +11,7 @@ property :email, String
 property :password_digest, Text
 property :created_at, DateTime
 
-#has n, :links, through: Resource
+has n, :links
 
 validates_presence_of :email, message: "Please fill in email."
 validates_uniqueness_of :email , message: "User already exists."
